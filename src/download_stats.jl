@@ -10,7 +10,7 @@ number of downloads in the last year.
 Caches downloaded file to reduce load on file hosts. Pass `redownload=true` to ignore
 cached downloads.
 """
-function package_requests_by_date(;redownload=!isassigned(PACKAGE_REQUESTS_BY_DATE_PATH))
+function package_requests_by_date(; redownload=!isassigned(PACKAGE_REQUESTS_BY_DATE_PATH))
     if redownload
         println("Downloading package request logs")
         url = "https://julialang-logs.s3.amazonaws.com/public_outputs/current/package_requests_by_date.csv.gz"
@@ -34,7 +34,7 @@ function downloads(package)
         df = package_requests_by_date()
         filter!(df) do row
             !ismissing(row.client_type) && row.client_type == "user" && row.status == 200 &&
-            row.date >= today() - Year(1)
+                row.date >= today() - Year(1)
         end
         gdf = groupby(df, :package_uuid)
         df = combine(gdf, :request_addrs => sum)
