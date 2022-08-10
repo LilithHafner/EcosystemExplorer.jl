@@ -49,7 +49,7 @@ latest_luid(p) = last(luids(p))
 latest_version(p) = version(latest_luid(p))
 
 # Initialization
-function load_registry(r = default_registry())
+function load_registry(r)
     for (uuid, pkg) in r.pkgs
         Pkg.Registry.init_package_info!(pkg)
         name = pkg.name

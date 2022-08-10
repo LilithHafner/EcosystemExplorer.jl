@@ -16,19 +16,13 @@ function get_package(package::Symbol)
         x isa ArgumentError || rethrow()
     end
 
-    project = dirname(Base.active_project())
-    try
+    in_temp_environment() do
         redirect_stderr(devnull) do
-            Pkg.activate(temp=true)
             Pkg.add(string(package))
         end
-        return @eval Main begin
+        @eval Main begin
             import $package
-            return $package
-        end
-    finally
-        redirect_stderr(devnull) do
-            Pkg.activate(project)
+            $package
         end
     end
 end
