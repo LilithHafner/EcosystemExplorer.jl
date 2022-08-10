@@ -16,10 +16,15 @@ luid::LUID
 !luids are internal!
 =#
 
+struct Stdlib
+    name::String
+    version::VersionNumber
+end
+
 const LUID = UInt32
 
 const UUIDS_BY_NAME = Dict{String, UUID}()
-const ENTRIES_BY_UUID = Dict{UUID, Pkg.Registry.PkgEntry}()
+const ENTRIES_BY_UUID = Dict{UUID, Union{Stdlib, Pkg.Registry.PkgEntry}}()
 
 const UUID_VERSION_BY_LUID = Tuple{UUID, VersionNumber}[]
 const LUID_BY_UUID_VERSION = Dict{Tuple{UUID, VersionNumber}, LUID}()
@@ -49,6 +54,17 @@ latest_luid(p) = last(luids(p))
 latest_version(p) = version(latest_luid(p))
 
 # Initialization
+function load_stdlibs()
+    for (uuid, (name, version)) in Pkg.Types.stdlibs()
+        UUIDS_BY_NAME[name] = uuid
+        v = version === nothing ? VERSION : version
+        ENTRIES_BY_UUID[uuid] = Stdlib(name, v)
+        push!(UUID_VERSION_BY_LUID, (uuid, v))
+        LUID_BY_UUID_VERSION[(uuid, v)] = lastindex(UUID_VERSION_BY_LUID)
+        LUID_BY_UUID[uuid] = lastindex(UUID_VERSION_BY_LUID):lastindex(UUID_VERSION_BY_LUID)
+    end
+end
+
 function load_registry(r)
     for (uuid, pkg) in r.pkgs
         Pkg.Registry.init_package_info!(pkg)

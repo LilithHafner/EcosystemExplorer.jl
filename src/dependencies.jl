@@ -8,12 +8,18 @@ function load_dependencies()
         id = LUID(i)
         v = version(id)
         deps = Vector{LUID}[]
-        for (vr, compats) in ENTRIES_BY_UUID[uuid(id)].info.compat
+        entry = ENTRIES_BY_UUID[uuid(id)]
+        if entry isa Stdlib
+            LUID_DEPENDENCY_GRAPH[i] = Vector{UInt32}[] # TODO this is not right
+            # fixing this should come with a comprehensive understanding of how
+            # package versions relate to julia versions (or should come with the
+            # abolition of stdlibs)
+            continue
+        end
+        for (vr, compats) in entry.info.compat
             if v ∈ vr
                 for (n, vr2) in compats
-                    if n == "julia" || n ∉ keys(UUIDS_BY_NAME)
-                        continue        # hopefully a stdlib
-                    end
+                    n == "julia" && continue
                     dep = UInt32[]
                     for v2 in versions(n)
                         if v2 ∈ vr2

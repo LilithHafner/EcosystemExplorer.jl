@@ -20,6 +20,8 @@ end
 TODO: Untested with more than 1 registry.
 """
 function load(registries...)
+    clear()
+    load_stdlibs()
     foreach(load_registry, registries)
     load_dependencies()
 end
