@@ -1,4 +1,4 @@
-export dependencies, dependents, dependents_on_old
+export dependencies, dependents, dependents_on_old, dependent_uuids, dependent_uuids_on_old
 
 function load_dependencies()
     isempty(UUID_VERSION_BY_LUID) && @warn "No registries loaded"
@@ -49,14 +49,15 @@ dependencies(args...) = map(dependency_luids(args...)) do dep
     package_name(first(dep)) => version.(dep)
 end
 
-dependents(p) = dependents(latest_luid(p))
-dependents(p, v) = dependents(luid(p, v))
-dependents(p::LUID) = filter(packages()) do u
+dependent_uuids(p) = dependent_uuids(latest_luid(p))
+dependent_uuids(p, v) = dependent_uuids(luid(p, v))
+dependent_uuids(p::LUID) = filter(packages()) do u
     p ∈ vcat(dependency_luids(u)...)
 end
+dependents(args...) = name.(dependent_uuids(args...))
 
-dependents_on_old(p) = dependents_on_old(uuid(p))
-function dependents_on_old(p::UUID)
+dependent_uuids_on_old(p) = dependent_uuids_on_old(uuid(p))
+function dependent_uuids_on_old(p::UUID)
     all = luids(p)
     latest = last(all)
     filter(packages()) do u
@@ -64,6 +65,7 @@ function dependents_on_old(p::UUID)
         !isdisjoint(deps, all) && latest ∉ deps
     end
 end
+dependents_on_old(args...) = name.(dependent_uuids_on_old(args...))
 
 function summary(p=packages())
     df = DataFrame(

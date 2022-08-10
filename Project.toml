@@ -1,7 +1,7 @@
 name = "EcosystemExplorer"
 uuid = "4c1de45c-6ba6-4794-88b8-a0fc666ce860"
 authors = ["Lilith Hafner <Lilith.Hafner@gmail.com> and contributors"]
-version = "0.2.0"
+version = "0.3.0"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
