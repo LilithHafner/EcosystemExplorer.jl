@@ -39,8 +39,9 @@ function docstrings(package::Symbol)
     with, without = Symbol[], Symbol[]
     for sym in names(pkg)
         ds = string(@eval @doc $pkg.$sym)
-        @assert match(r"^No documentation found.\n\nBinding `.*` does not exist.\n$", ds) === nothing
-        missin = startswith(ds, "No documentation found.") || startswith(ds, "No docstring found")
+        undefined = match(r"^No documentation found.\n\nBinding `.*` does not exist.\n$", ds) !== nothing
+        undefined && @warn "$package exports $sym but it is not defined"
+        missin = undefined ||  startswith(ds, "No documentation found.") || startswith(ds, "No docstring found")
         push!(missin ? without : with, sym)
     end
     return with, without
