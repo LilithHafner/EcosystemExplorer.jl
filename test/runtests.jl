@@ -20,4 +20,12 @@ using Test, UUIDs, DataFrames
     @test latest_version(UUID("10745b16-79ce-11e8-11f9-7d13ad32a3b2")) isa VersionNumber
 
     @test length(EcosystemExplorer.summary().name) ≥ 8098 # 8098 on 2022-08-10
+
+    # docstrings
+    docstrings(Base)
+    docstrings("Base")
+    @test_broken docstrings(Base.Sort)
+    docstrings("Statistics")
+    docstrings("StatsBase")
+    docstrings(StatsBase) # magic
 end
