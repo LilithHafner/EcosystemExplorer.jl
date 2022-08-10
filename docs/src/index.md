@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = PackageGraphs
+CurrentModule = EcosystemExplorer
 ```
 
-# PackageGraphs
+# EcosystemExplorer
 
-Documentation for [PackageGraphs](https://github.com/LilithHafner/PackageGraphs.jl).
+Documentation for [EcosystemExplorer](https://github.com/LilithHafner/EcosystemExplorer.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [PackageGraphs]
+Modules = [EcosystemExplorer]
 ```

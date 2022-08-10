@@ -1,4 +1,4 @@
-module PackageGraphs
+module EcosystemExplorer
 
 using Pkg, CSV, DataFrames, Downloads, Dates, UUIDs
 

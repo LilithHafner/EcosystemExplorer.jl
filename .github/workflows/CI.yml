@@ -57,6 +57,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using PackageGraphs
-            DocMeta.setdocmeta!(PackageGraphs, :DocTestSetup, :(using PackageGraphs); recursive=true)
-            doctest(PackageGraphs)'
+            using EcosystemExplorer
+            DocMeta.setdocmeta!(EcosystemExplorer, :DocTestSetup, :(using EcosystemExplorer); recursive=true)
+            doctest(EcosystemExplorer)'

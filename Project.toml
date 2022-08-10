@@ -1,4 +1,4 @@
-name = "PackageGraphs"
+name = "EcosystemExplorer"
 uuid = "4c1de45c-6ba6-4794-88b8-a0fc666ce860"
 authors = ["Lilith Hafner <Lilith.Hafner@gmail.com> and contributors"]
 version = "0.0.0"

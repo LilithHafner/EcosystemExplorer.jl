@@ -62,7 +62,7 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 version = "1.2.0"
 
-[[deps.PackageGraphs]]
+[[deps.EcosystemExplorer]]
 path = ".."
 uuid = "4c1de45c-6ba6-4794-88b8-a0fc666ce860"
 version = "0.0.0"
