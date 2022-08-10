@@ -1,5 +1,4 @@
 export uuid, name, version, package_name, versions, latest_version, packages, package_names
-export load_registry
 
 #= Representations
 

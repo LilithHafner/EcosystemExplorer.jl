@@ -1,4 +1,4 @@
-export load_dependencies, dependencies, dependents, dependents_on_old
+export dependencies, dependents, dependents_on_old
 
 function load_dependencies()
     isempty(UUID_VERSION_BY_LUID) && @warn "No registries loaded"
