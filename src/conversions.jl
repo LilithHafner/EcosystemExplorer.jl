@@ -63,7 +63,9 @@ latest_version(p) = version(latest_luid(p))
 
 # Initialization
 function load_stdlibs()
-    for (uuid, (name, version)) in Pkg.Types.stdlibs()
+    for (uuid, nv) in Pkg.Types.stdlibs()
+        # this depends on julia version: 1.7 gives name only, 1.8 gives name and version
+        name, version = nv isa Tuple ? nv : (nv, nothing)
         UUIDS_BY_NAME[name] = uuid
         v = version === nothing ? VERSION : version
         ENTRIES_BY_UUID[uuid] = Stdlib(name, v)
