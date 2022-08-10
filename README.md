@@ -6,8 +6,11 @@
 [![Coverage](https://codecov.io/gh/LilithHafner/EcosystemExplorer.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/LilithHafner/EcosystemExplorer.jl)
 
 This package aims to provide all the simple tools you need to dig into the julia package
-ecosystem. It provides a summary data frame.
+ecosystem. See also https://github.com/JuliaEcosystem for alternatives.
 
+# Features
+
+It provides a summary data frame.
 ```julia
 julia> using EcosystemExplorer
 
