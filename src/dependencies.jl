@@ -64,3 +64,21 @@ function dependents_on_old(p::UUID)
         !isdisjoint(deps, all) && latest ∉ deps
     end
 end
+
+function summary(p = packages())
+    df = DataFrame(
+        name = name.(p),
+        version = latest_version.(p),
+        downloads = downloads.(p),
+        dependencies = [first.(dependencies(x)) for x in p],
+        dependents = [String[] for x in p],
+        uuid = p,
+    )
+    for (i,pkg) in enumerate(p)
+        for dep in dependencies(pkg)
+            push!(df.dependents[i], first(dep))
+        end
+    end
+    sort!(df, [order(:downloads, rev=true), order(:dependents, by=length, rev=true),
+               order(:version, rev=true), :name])
+end

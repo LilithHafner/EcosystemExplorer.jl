@@ -17,4 +17,6 @@ using Test, UUIDs, DataFrames
     @test uuid("Statistics") == UUID("10745b16-79ce-11e8-11f9-7d13ad32a3b2")
     @test name(UUID("10745b16-79ce-11e8-11f9-7d13ad32a3b2")) == "Statistics"
     @test latest_version(UUID("10745b16-79ce-11e8-11f9-7d13ad32a3b2")) isa VersionNumber
+
+    @test length(EcosystemExplorer.summary().name) ≥ 8098 # 8098 on 2022-08-10
 end
