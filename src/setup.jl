@@ -31,7 +31,7 @@ function load()
         end
     end
     regs = if isempty(Pkg.Registry.REGISTRY_CACHE)
-        path = joinpath(homedir(), ".julia/registries/General")
+        path = joinpath(homedir(), ".julia", "registries", "General")
         reg = Pkg.Registry.RegistryInstance(path)
         @warn "Pkg.Registry.REGISTRY_CACHE is empty, using registry at $path instead."
         [reg]
