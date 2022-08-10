@@ -35,7 +35,16 @@ const LUID_DEPENDENCY_GRAPH = Vector{Vector{UInt32}}[]
 uuid(p::UUID) = p
 uuid(p) = UUIDS_BY_NAME[name(p)]
 name(p::UUID) = ENTRIES_BY_UUID[p].name
-name(p::String) = p
+function name(p::String)
+    uuid = if length(p) == 36
+        try
+            UUID(p)
+        catch x
+            x isa ArgumentError || rethrow()
+        end
+    end
+    uuid isa UUID ? name(uuid) : p
+end
 name(p::Module) = string(p)
 
 uuid(p::LUID) = UUID_VERSION_BY_LUID[p][1]

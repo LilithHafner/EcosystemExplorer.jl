@@ -4,6 +4,7 @@ using Test, UUIDs, DataFrames
 @testset "EcosystemExplorer.jl" begin
     @test uuid("StatsBase") == UUID("2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91")
     @test name(UUID("2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91")) == "StatsBase"
+    @test name("2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91") == "StatsBase"
     @test uuid(DataFrames) == UUID("a93c6f00-e57d-5684-b7b6-d8193f3e46c0")
     @test length(versions(DataFrames)) ≥ 55 # 55 on 2022-08-10
 
