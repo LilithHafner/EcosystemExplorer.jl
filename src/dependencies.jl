@@ -1,4 +1,4 @@
-export dependencies, dependents, dependents_on_old, dependent_uuids, dependent_uuids_on_old
+export dependencies, dependents, dependents_on_old, dependent_uuids, dependent_uuids_on_old, indirect
 
 function load_dependencies()
     isempty(UUID_VERSION_BY_LUID) && @warn "No registries loaded"
@@ -84,3 +84,20 @@ function summary(p=packages())
     sort!(df, [order(:downloads, rev=true), order(:dependents, by=length, rev=true),
                order(:version, rev=true), :name])
 end
+
+function indirect(f::Function, root)
+    history = Set([root])
+    stack = [root]
+    while !isempty(stack)
+        x = pop!(stack)
+        for y in f(x)
+            if y ∉ history
+                push!(stack, y)
+                push!(history, y)
+            end
+        end
+    end
+    history
+end
+
+indirect(::typeof(dependencies), root) = indirect(x -> first.(dependencies(x)), root)
