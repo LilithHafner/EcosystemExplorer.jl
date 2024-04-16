@@ -12,6 +12,9 @@ ecosystem. See also https://github.com/JuliaEcosystem for alternatives.
 
 It provides a summary data frame.
 ```julia
+pkg> add https://github.com/LilithHafner/EcosystemExplorer.jl
+[...]
+
 julia> using EcosystemExplorer
 
 julia> EcosystemExplorer.summary()
